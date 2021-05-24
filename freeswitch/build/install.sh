@@ -8,6 +8,7 @@ adduser --disabled-password  --quiet --system --home /usr/local/freeswitch --ing
 
 git clone --depth 1 --no-single-branch https://github.com/2600hz/kazoo-sounds
 cp -a kazoo-sounds/freeswitch /usr/local/freeswitch/sounds
+rm -rf kazoo-sounds
 
 chown -R freeswitch:freeswitch /usr/local/freeswitch/
 chmod -R ug=rwX,o= /usr/local/freeswitch/

@@ -1,8 +1,7 @@
 #!/bin/sh -e
-NETWORK=${NETWORK:-"kazoo"}
-REPO=${2:-"https://freeswitch.org/stash/scm/fs/freeswitch.git"}
-COMMIT=${1:-"$(../bin/get-commit $REPO)"}
+NETWORK="kazoo"
+REPO="https://github.com/signalwire/freeswitch.git"
 
-echo $COMMIT > etc/commit
+COMMIT=$(cat etc/commit)
 
-docker build $BUILD_FLAGS --build-arg REPO=$REPO -t $NETWORK/freeswitch .
+docker build $BUILD_FLAGS --build-arg REPO=$REPO -t $NETWORK/freeswitch:$COMMIT .

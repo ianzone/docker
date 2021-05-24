@@ -1,5 +1,4 @@
 FROM debian:jessie
-MAINTAINER Roman Galeev <jamhed@2600hz.com>
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV APT_LISTCHANGES_FRONTEND=none

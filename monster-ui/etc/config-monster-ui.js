@@ -3,7 +3,9 @@ define(function(require){
 	return {
 		api: {
 			// The default API URL defines what API is used to log in to your back-end
-			default: 'http://kazoo.kazoo:8000/v2/' // could be formatted like http://api.server.net:8000/v2/
+			// default: 'http://localhost:8000/v2/' // could be formatted like http://api.server.net:8000/v2/
+			// without default value it will be
+				// window.location.protocol + // + window.location.hostname + :8000/v2/
 
 			// If you have provisioner turned on in your install and can use the one provided by 2600Hz, add the URL in the 'provisioner' key below
 			// provisioner: 'http://URL/2600hz-provisioner/'
@@ -43,7 +45,7 @@ define(function(require){
 			callReportEmail: 'support@2600hz.com',
 
 			// Company Name, used in many places in the UI
-			companyName: '2600Hz',
+			companyName: 'dek',
 
 			nav: {
 				// Link used when user click on the top-right interrogation mark

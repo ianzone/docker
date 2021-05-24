@@ -1,5 +1,5 @@
-FROM node:latest
-MAINTAINER Roman Galeev <jamhed@2600hz.com>
+FROM node:13.14
+
 
 USER root
 WORKDIR /root

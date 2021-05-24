@@ -1,9 +1,8 @@
 FROM kazoo/base-os
-MAINTAINER Roman Galeev <jamhed@2600hz.com>
+
 
 USER root
-
-ARG REPO=https://freeswitch.org/stash/scm/fs/freeswitch.git
+ARG REPO=https://github.com/signalwire/freeswitch.git
 ARG CONFIG=master
 
 COPY build/setup-os.sh build/setup-os.sh
@@ -25,6 +24,7 @@ RUN build/build.sh
 
 COPY build/setup-config.sh build/setup-config.sh
 RUN build/setup-config.sh
+# COPY etc/freeswitch ./freeswitch
 
 COPY build/install.sh build/install.sh
 RUN build/install.sh

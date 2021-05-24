@@ -5,20 +5,18 @@ then
 	exit 0
 fi
 
-# REPO is global and must be defined on build
-git clone $REPO kazoo
-
 . erlang/activate
 COMMIT=$(cat ~/commit)
 cd kazoo
 
-if [ -z $BRANCH ]
-then
-	git reset --hard $COMMIT
-	git clean -d -f
-else
-	git fetch origin $BRANCH:build_branch
-	git checkout build_branch
-	git clean -d -f
-fi
+git reset --hard
+git checkout $COMMIT
+git clean -d -f
+
+
+sed -i 's/aba1fa96a4abbbb2c1628ad5d604f482aad4d12f/master/g' make/deps.mk
+# sed -i 's|2600hz/erlang-cowboy 2.8.0-OTP19|ninenines/cowboy 2.6.3|g' make/deps.mk
+sed -i 's/open("dialcodes.json")/open("dialcodes.json",encoding="utf-8")/g' core/kazoo_numbers/Makefile || true
+sed -i 's/open(fn)/open(fn,encoding="utf-8")/g' scripts/format-json.py || true
+
 make deps

@@ -1,8 +1,6 @@
-#!/bin/sh -e
-FLAGS=${1:-"-td"}
-IMAGE=${2:-"kazoo/couchdb"}
-NETWORK=${NETWORK:-"kazoo"}
-NAME=couchdb.$NETWORK
+#!/bin/bash -e
+NETWORK="kazoo"
+NAME="couchdb.$NETWORK"
 
 if [ -n "$(docker ps -aq -f name=$NAME)" ]
 then
@@ -13,8 +11,29 @@ then
 fi
 echo -n "starting: $NAME "
 
-docker run $FLAGS \
-	--net $NETWORK \
-	-h $NAME \
-	--name $NAME \
-	$IMAGE
+# COMMIT=$(cat ./etc/version) > /dev/null || true
+# if [ "$COMMIT" == "" ]
+# then
+# 	COMMIT=$(cat ./couchdb/etc/version)
+# fi
+
+# docker run -itd \
+# 	--net $NETWORK \
+# 	-h $NAME \
+# 	--name $NAME \
+#    -p 5984:5984 \
+# 	$NETWORK/couchdb:$COMMIT
+
+VERSION=$(cat ./couchdb/etc/version) > /dev/null || true
+if [ "$VERSION" == "" ]
+then
+   VERSION=$(cat ./etc/version)
+fi
+
+docker run -itd \
+   --net $NETWORK \
+   -h $NAME \
+   -e ERL_FLAGS="-name couchdb@$NAME -setcookie change_me" \
+   --name $NAME \
+   -p 5984:5984 \
+   $NETWORK/couchdb:$VERSION

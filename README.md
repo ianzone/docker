@@ -12,7 +12,6 @@ Notes
 =====
 
 * All components depends on base-os image (debian jessie)
-* BigCouch is replaced by CouchDB 2.0
 * Containers are big (as they contains complete source code and build tools)
 
 Init
@@ -60,7 +59,7 @@ Kazoo Erlang console
 ====================
 
 ```sh
-docker exec -ti kazoo.kazoo ./run.sh remote_console
+docker exec -ti kazoo ./run.sh remote_console
 # or
 cd kazoo ; ./console
 ```
@@ -75,13 +74,13 @@ cd kazoo
 ./sup kapps_controller running_apps
 
 # Add Freeswitch node
-./sup ecallmgr_maintenance add_fs_node freeswitch@freeswitch.kazoo
+./sup ecallmgr_maintenance add_fs_node freeswitch@freeswitch
 
-# Get freeswitch nodes (should be [<<"freeswitch@freeswitch.kazoo">>])
+# Get freeswitch nodes (should be [<<"freeswitch@freeswitch">>])
 ./sup ecallmgr_config get fs_nodes
 
 # Add admin user
-./sup crossbar_maintenance create_account admin_name kamailio.kazoo admin admin
+./sup crossbar_maintenance create_account admin_name kamailio admin admin
 
 # Import Kazoo voice prompts
 ./sup kazoo_media_maintenance import_prompts /home/user/kazoo-sounds/kazoo-core/en/us en-us

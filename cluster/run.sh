@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 docker network create kazoo
 docker network create zone1
 docker network create zone2

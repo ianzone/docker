@@ -1,12 +1,13 @@
 #!/bin/sh -e
-NETWORK=${NETWORK:-"kazoo"}
-REPO=${2:-"https://github.com/2600hz/monster-ui.git"}
-COMMIT=${1:-"$(../bin/get-commit $REPO)"}
-echo Using repository $REPO commit $COMMIT
-echo $COMMIT > etc/commit
+NETWORK="kazoo"
+REPO="https://github.com/2600hz/monster-ui.git"
+
+COMMIT=$(cat etc/commit)
+
 [ -e ./apps ] && APPS=$(cat apps)
+
 docker build $BUILD_FLAGS \
-	-t $NETWORK/monster-ui \
+	-t $NETWORK/monster-ui:$COMMIT \
 	--build-arg APPS="$APPS" \
 	--build-arg TOKEN=$TOKEN \
 	--build-arg REPO=$REPO .

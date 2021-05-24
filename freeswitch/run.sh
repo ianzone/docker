@@ -1,9 +1,7 @@
-#!/bin/sh -e
-FLAGS=${1:-"-td"}
-IMAGE=${2:-"kazoo/freeswitch"}
-NETWORK=${NETWORK:-"kazoo"}
-NAME=${NAME:-"freeswitch.$NETWORK"}
-KAMAILIO=${KAMAILIO:-"kamailio.$NETWORK"}
+#!/bin/bash -e
+NETWORK="kazoo"
+NAME="freeswitch.$NETWORK"
+KAMAILIO="kamailio.$NETWORK"
 
 if [ -n "$(docker ps -aq -f name=$NAME)" ]
 then
@@ -13,13 +11,20 @@ then
    docker rm -f $NAME
 fi
 
+COMMIT=$(cat ./freeswitch/etc/commit) > /dev/null || true
+if [ "$COMMIT" == "" ]
+then
+    COMMIT=$(cat ./etc/commit)
+fi
+
 echo -n "starting: $NAME "
-docker run $FLAGS \
-	--net $NETWORK \
-	-h $NAME \
-	--name $NAME \
-	--env RABBITMQ=${RABBITMQ:-"rabbitmq.$NETWORK"} \
-	$IMAGE
+docker run -itd \
+    --net $NETWORK \
+    -h $NAME \
+    --name $NAME \
+    --env RABBITMQ="rabbitmq.$NETWORK" \
+    -p 5080:5080 \
+    kazoo/freeswitch:$COMMIT
 
 echo -n "adding dispatcher $NAME to kamailio $KAMAILIO "
 docker exec $KAMAILIO dispatcher_add.sh 1 $NAME

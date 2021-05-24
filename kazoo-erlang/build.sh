@@ -1,3 +1,4 @@
 #!/bin/sh -e
-NETWORK=${NETWORK:-"kazoo"}
-docker build $BUILD_FLAGS -t $NETWORK/erlang .
+NETWORK="kazoo"
+VERSION=$(cat ./etc/version)
+docker build $BUILD_FLAGS -t $NETWORK/erlang:$VERSION .

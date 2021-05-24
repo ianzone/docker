@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 if [ -z $1 ]
 then
 	echo Usage: $0 access_token

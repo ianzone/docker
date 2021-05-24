@@ -1,7 +1,7 @@
-#!/bin/sh -e
+#!/bin/bash -e
 FLAGS=${1:-"-td"}
-NETWORK=${NETWORK:-"kazoo"}
-NAME=monster-ui.$NETWORK
+NETWORK="kazoo"
+NAME="monster-ui.$NETWORK"
 
 if [ -n "$(docker ps -aq -f name=$NAME)" ]
 then
@@ -12,8 +12,16 @@ then
 fi
 echo -n "starting: $NAME "
 
+COMMIT=$(cat ./monster-ui/etc/commit) > /dev/null || true
+if [ "$COMMIT" == "" ]
+then
+   COMMIT=$(cat ./etc/commit)
+fi
+
 docker run $FLAGS \
-	--net $NETWORK \
-	-h $NAME \
-	--name $NAME \
-	kazoo/monster-ui
+   --net $NETWORK \
+   -h $NAME \
+   --name $NAME \
+   -p 3000:3000 \
+   -p 3001:3001 \
+   kazoo/monster-ui:$COMMIT

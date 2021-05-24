@@ -1,0 +1,11 @@
+FROM kamailio/kamailio-ci:5.2.0-alpine
+
+USER root
+
+# RUN apt update
+
+# RUN apt install git -y
+
+# RUN git clone https://github.com/2600hz/kazoo-configs-kamailio
+
+# RUN cp -a kazoo-configs-kamailio/kamailio /etc/

@@ -1,5 +1,5 @@
 FROM docker
-MAINTAINER Roman Galeev <jamhed@2600hz.com>
+
 
 ARG TOKEN
 ARG DOCKER

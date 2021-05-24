@@ -23,8 +23,16 @@ RUN build/build.sh
 
 COPY etc/ etc
 COPY build/config-kazoo.sh build/config-kazoo.sh
+
+ENV PATH $PATH:/usr/local/lib64/kamailio/sbin/
+
 RUN build/config-kazoo.sh
 
 COPY build/run.sh run.sh
 COPY build/config-local.sh config-local.sh
+COPY build/install-sngrep.sh build/install-sngrep.sh
+RUN build/install-sngrep.sh
+
+COPY build/dispatcher_add.sh /usr/local/lib64/kamailio/sbin/dispatcher_add.sh
+
 ENTRYPOINT ["./run.sh"]

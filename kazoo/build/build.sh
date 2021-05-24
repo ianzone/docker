@@ -1,15 +1,15 @@
-#!/bin/sh -e
+#!/bin/bash -e
 [ -n "$SKIP_BUILD" ] && exit 0
 . erlang/activate
 cd kazoo
 
-if [ -z $BRANCH ]
+cp ../sys.config rel/
+
+if [ "$VERSION" == "4.3" ]
 then
-	git fetch
-	COMMIT=$(cat ~/commit)
-	git reset --hard $COMMIT
-	git clean -d -f
+    cp /tmp/sup.erl core/sup/src/sup.erl
 fi
 
-cp ../sys.config rel/
 make compile build-dev-release
+
+touch ../skip_build

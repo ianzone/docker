@@ -1,6 +1,15 @@
 #!/bin/sh -e
 cp -a etc/kamailio /etc/
 
+# git clone https://github.com/2600hz/kazoo-configs-kamailio
+
+# cp  etc/kamailio/kamailio.cfg kazoo-configs-kamailio/kamailio/
+
+# cp -a kazoo-configs-kamailio/kamailio /etc/
+
+# DBENGINE=DBTEXT
+# DB_PATH="/etc/kamailio/dbtext"
+
 kamdbctl reinit
 
 sed -i -E  "s/mpath=/#mpath=/g" /etc/kamailio/default.cfg
